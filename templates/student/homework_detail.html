@@ -1,0 +1,57 @@
+{% extends "index.html" %}
+{% load  student_tags%}
+{% block page-content %}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">班级：{{ studyrecord_obj.student.enrolled_class }}
+        | 节次：{{ studyrecord_obj.course_record.day_num }}
+        </div>
+        <div class="panel-body">
+            <h4>作业标题：{{ studyrecord_obj.course_record.homework_title }}</h4>
+            <h4>作业内容：<pre>{{ studyrecord_obj.course_record.homework_content }}</pre></h4>
+            <h4>老师评语：{{ studyrecord_obj.memo}}</h4>
+            <h4>成绩：{{ studyrecord_obj.score}}</h4>
+            <form id = "filedropzone" method="post" action="{{ request.path }}" class="dropzone dz-clickable">
+                <div class="fallback">
+                    <input name="file" type="file" multiple />
+                </div>
+                <div>
+                    <p class="dz-message">把作业放到这里来</p>
+                </div>
+            </form>
+        </div>
+
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+     $(document).ready(function () {
+        Dropzone.options.filedropzone = {
+            url: "{{ request.path }}",
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 5, // MB,
+            addRemoveLinks: true,
+            maxFiles: 1,
+            uploadMultiple: true,
+            accept: function (file, done) {
+                if (! file.name.endsWith(".zip")){
+                    alert("只能上传zip格式的压缩包");
+                }
+                else {
+                    done();
+                }
+            }
+        };
+        Dropzone.autoDiscover = false;
+        myDropzone = new Dropzone("#filedropzone");
+        myDropzone.on("addedfile", function(file) {
+        /* Maybe display some more file information on your page */
+        console.log("-------",file)
+        });
+        console.log(myDropzone.files);
+        myDropzone.on("success", function (file, response) {
+            console.log("file upload done...", response);
+        })
+    });
+    </script>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "index.html" %}
+{% block page-content %}
+
+    <div id="content">
+    <div class="col-sm-2">
+        报名表
+    </div>
+        <hr>
+        <form action="" class="form-horizontal col-lg-5" role="form" method="post">
+            <span style="color: red">
+                {{ enroll_form.errors }}
+            </span>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">客户</label>
+                    <div class="col-sm-9">
+                        qq:{{ customer_obj.qq }}
+                        name:{{ customer_obj.name }}
+                    </div>
+        </div>
+            {% for field in enroll_form %}
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ field.label }}</label>
+                    <div class="col-sm-9">
+                        {{ field }}
+                    </div>
+                </div>
+            {% endfor %}
+            <input type="submit" class="btn btn-info pull-right" value="下一步">
+        </form>
+        <div class="row">
+            <ul>
+                {% for k, v in msgs.items %}
+                    <li>
+                        {{ k }}:{{ v }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

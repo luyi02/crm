@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+{% block page-content %}
+
+
+    <div class="col-sm-12">
+        <h1>学员缴费记录</h1>
+    </div>
+        <hr>
+    <ul style="color: red;">
+        {% for error in errors %}
+        {{ error }}
+    {% endfor %}
+    </ul>
+    <div id="content">
+        <form action="" class="form-horizontal col-lg-5" role="form" method="post">
+        <div class="form-group">
+                <label class="col-sm-3 control-label">客户</label>
+                <div class="col-sm-9">
+                    {{ enroll_obj.customer }}
+                </div>
+            </div>
+        <div class="form-group">
+                <label class="col-sm-3 control-label">所报课程</label>
+                <div class="col-sm-9">
+                    {{ enroll_obj.enrolled_class.course }}
+                </div>
+            </div>
+        <div class="form-group">
+                <label class="col-sm-3 control-label">缴费金额</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="amount" placeholder="至少交五百">
+                </div>
+            </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">销售员</label>
+            <div class="col-sm-9">
+                {{ enroll_obj.consultant }}
+            </div>
+        </div>
+        <input type="submit" class="btn btn-success pull-right" value="提交">
+        </form>
+    </div>
+{% endblock %}
